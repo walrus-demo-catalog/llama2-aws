@@ -1,9 +1,13 @@
-resource "aws_instance" "llama" {
-  ami           = var.ami_id
-  instance_type = var.instance_type
-  subnet_id     = var.vpc_name != "" ? data.aws_subnets.selected.0.ids.0 : null
-  vpc_security_group_ids = var.security_group_name != "" ? [data.aws_security_group.selected.0.id] : null
-  key_name      = var.key_name
+resource "aws_spot_instance_request" "llama" {
+  ami                         = var.ami_id
+  instance_type               = var.instance_type
+  subnet_id                   = var.vpc_name != "" ? data.aws_subnets.selected.0.ids.0 : null
+  vpc_security_group_ids      = var.security_group_name != "" ? [data.aws_security_group.selected.0.id] : null
+  key_name                    = var.key_name
+  spot_type                   = "one-time"
+  spot_price                  = var.spot_price * 1.2
+  wait_for_fulfillment        = true
+  associate_public_ip_address = true
   user_data     = <<-EOF
                   #!/bin/bash
                   cd /opt/llama/text-generation-webui

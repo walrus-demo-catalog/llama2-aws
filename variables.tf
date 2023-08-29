@@ -10,6 +10,11 @@ variable "ami_id" {
   default     = "ami-0b0b8676da9af9947"
 }
 
+variable "spot_price" {
+  description = "The price for spot instance"
+  default = ""
+}
+
 variable "disk_size" {
   type = number
   description = "Root disk size in GiB"
