@@ -28,7 +28,7 @@ resource "aws_spot_instance_request" "llama" {
 
 resource "null_resource" "health_check" {
   depends_on = [
-    aws_instance.llama,
+    aws_spot_instance_request.llama,
   ]
 
   triggers = {
