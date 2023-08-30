@@ -1,4 +1,4 @@
-# @options ["c5.2xlarge","c5.4xlarge"]
+# @options ["c5.2xlarge","c5.4xlarge","g4dn.xlarge","g4dn.2xlarge","g4dn.4xlarge"]
 variable "instance_type" {
   type = string
   description = "Instance type"
@@ -13,6 +13,13 @@ variable "ami_id" {
 variable "spot_price" {
   description = "The price for spot instance"
   default = ""
+}
+
+# @options [1.0, 1.1, 1.2, 1.3, 1.4, 1.5]
+variable "increase_rate" {
+  type = number
+  description = "Spot price increase rate"
+  default = 1.3
 }
 
 variable "disk_size" {
